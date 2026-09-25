@@ -1,0 +1,17 @@
+# Left out of the Nexus archive (gitignore syntax). Only files committed to git
+# are packed in the first place, so local junk never ends up in there.
+# Preview what gets packed: bash tools/build_nexus_zip.sh && unzip -l nexus-upload.zip
+
+# git and tooling
+.git*
+.nexusignore
+.claude/
+tools/
+
+# the README lives on the Nexus page itself; Sources is the build material that
+# makes the animations, and img the art sources - none of which the game reads
+README.md
+README.nexus.bbcode
+docs/
+img/
+Sources/

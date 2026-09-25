@@ -1,0 +1,16 @@
+# Hit Reactions Animated
+#
+# Two halves that share a settings page:
+#   hitReactingActor  a torso flinch layered on any damage, driven by MSS
+#   brutalStaggers    replaces the engine's stagger, knockdown, knockout and
+#                     death animations with endorphin-simulated falls
+#
+# Max Yari's Script Services (MaxYariScriptServices.omwscripts) is required.
+
+GLOBAL: scripts/MaxYari/hit reactions/settingsGlobal.lua
+GLOBAL: scripts/MaxYari/hit reactions/staggers/settingsGlobal.lua
+
+PLAYER: scripts/MaxYari/hit reactions/settingsPlayer.lua
+
+NPC, CREATURE, PLAYER: scripts/MaxYari/hit reactions/hitReactingActor.lua
+NPC, CREATURE, PLAYER: scripts/MaxYari/hit reactions/staggers/brutalStaggers.lua

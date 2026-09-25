@@ -1,0 +1,146 @@
+# Which way each attack swings, in the ATTACKER's own frame.
+#
+#   x   sideways: negative is the attacker's left, positive their right
+#   y   vertical: positive is up, negative is down
+#
+# So a slash that travels LEFT TO RIGHT is [1, 0] and one that travels RIGHT TO
+# LEFT is [-1, 0]. Only the direction is read; length is ignored.
+#
+# [0, 0] means no sweep at all - a thrust or a shot. The character is still
+# thrown, just straight away from whoever hit them, so forward needs no vector
+# of its own.
+#
+# Keys are animation group names as OpenMW reports them, lowercased. The group
+# is looked up from whatever is actually driving the attacker's arm at the
+# moment of the hit. Anything unlisted falls back to "default" for its type.
+#
+#
+# A NOTE ON THE ALTERNATING GROUPS, WHICH CURRENTLY NEVER FIRE
+# ------------------------------------------------------------
+# ReAnimation's alternating attacks are FIRST PERSON ONLY. Every one of its
+# addAttackVariants calls passes ARMATURE_TYPE.FirstPerson, and the mod ships
+# only an Animations/xbase_anim.1st folder - there is no third-person animation
+# in it at all.
+#
+# This mod is third person. The group driving an attacker's arm, as seen from
+# the victim, is therefore always the VANILLA one: weapononehand, weapontwohand,
+# weapontwowide or handtohand. The *alt, *sub and *ktn entries below cannot be
+# reached and are kept only so they are already right if third-person variants
+# ever ship.
+#
+# The consequence is worth understanding rather than working around: in third
+# person a two-handed slash has exactly one animation and it sweeps one way, so
+# it throws the target the same way every time. That is faithful to what played.
+# In first person you see your own arms alternate, and the target will not
+# follow them - the victim's script cannot see your first-person armature, and
+# openmw.animation has no first-person accessor to offer it one.
+
+
+# Vanilla: chop comes down, thrust goes straight in. Slash is per weapon - see
+# below - so "default" takes the majority case, right to left.
+default:
+  chop: [0, -1]
+  slash: [-1, 0]
+  thrust: [0, 0]
+  shoot: [0, 0]
+
+# --- vanilla attack groups -------------------------------------------------
+# One-handed is the odd one out: its slash travels LEFT TO RIGHT. Every other
+# weapon slashes right to left.
+weapononehand:
+  chop: [0, -1]
+  slash: [1, 0]
+  thrust: [0, 0]
+
+weapontwohand:
+  chop: [0, -1]
+  slash: [-1, 0]
+  thrust: [0, 0]
+
+weapontwowide:
+  chop: [0, -1]
+  slash: [-1, 0]
+  thrust: [0, 0]
+
+handtohand:
+  chop: [0, -1]
+  slash: [-1, 0]
+  thrust: [0, 0]
+
+# --- ReAnimation substitutes: same direction as the animation they stand in for
+weapontwohandktn:
+  chop: [0, -1]
+  slash: [-1, 0]
+  thrust: [0, 0]
+
+weapontwohandsub:
+  chop: [0, -1]
+  slash: [-1, 0]
+  thrust: [0, 0]
+
+weapontwowidesub:
+  chop: [0, -1]
+  slash: [-1, 0]
+  thrust: [0, 0]
+
+weapontwowidesub2:
+  thrust: [0, 0]
+
+weapontwowidesub3:
+  thrust: [0, 0]
+
+weapontwowidesub4:
+  thrust: [0, 0]
+
+# --- ReAnimation alternating attacks: the opposite swing ------------------
+# "1" on the end for long blades, "alt" for everything else. Chop comes up
+# instead of down and the slash reverses. Thrust is still straight in; there is
+# no opposite of forward.
+#
+# Unreachable in third person - see the note at the top.
+weapononehand1:
+  chop: [0, 1]
+  slash: [-1, 0]
+  thrust: [0, 0]
+
+weapontwohandalt:
+  chop: [0, 1]
+  slash: [1, 0]
+  thrust: [0, 0]
+
+weapontwohandktnalt:
+  chop: [0, 1]
+  slash: [1, 0]
+  thrust: [0, 0]
+
+weapontwowidealt:
+  chop: [0, 1]
+  slash: [1, 0]
+  thrust: [0, 0]
+
+handtohandalt:
+  chop: [0, 1]
+  slash: [1, 0]
+  thrust: [0, 0]
+
+# --- ranged: no sweep, the target is simply pushed away from the shooter ---
+bowandarrow:
+  shoot: [0, 0]
+
+bowandarrow1:
+  shoot: [0, 0]
+
+crossbow:
+  shoot: [0, 0]
+
+throwweapon:
+  shoot: [0, 0]
+
+throwweaponalt:
+  shoot: [0, 0]
+
+throwweaponstar:
+  shoot: [0, 0]
+
+throwweaponaltstar:
+  shoot: [0, 0]

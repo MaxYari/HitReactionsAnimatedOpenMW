@@ -1,0 +1,113 @@
+# Brutal Staggers' copy of OpenMW's global animation blending config.
+#
+# Everything below the marked block is OpenMW's stock file, verbatim. Only the
+# one block is ours.
+#
+# Overriding this file is what OpenMW's own copy tells mods not to do, and the
+# advice is sound - any other mod that ships this path will conflict, last in
+# the load order winning, and this copy goes stale if OpenMW changes its
+# defaults. It is done anyway because there is no other way to reach the
+# transition OUT of a stagger.
+#
+# Why: the rules that govern a transition belong to the animation being blended
+# INTO, not the one being left (Animation::resetActiveGroups passes
+# animsrc->mAnimBlendRules of the source becoming active). A per-kf file can
+# therefore only shape transitions into its own clips. Leaving a stagger means
+# blending into idle or movement, which live in xbase_anim.kf and use these
+# rules. OpenMW's own file does the same thing for jumping and the inventory
+# doll, both of which are outgoing rules.
+#
+# Delete this file to go back to stock behaviour. The only thing lost is the
+# recovery timing out of a stagger, which falls back to the generic 0.25s
+# sineOut - not far off.
+
+# This is the default OpenMW animation blending config file (global config) , will affect NPCs and creatures but not animated objects.
+# If you want to provide an animation blending config for your modded animations - DO NOT override the global config in your mod.
+# For details on how to edit and create your own blending rules, see https://openmw.readthedocs.io/en/latest/reference/modding/animation-blending.html
+
+blending_rules:
+  # General blending rule, any transition that will not be caught by the rules below - will use this rule
+  - from: "*"
+    to: "*"
+    easing: "sineOut"
+    duration: 0.25
+
+  # --- Brutal Staggers: recovery out of a stagger ---------------------------
+  # Placed straight after the generic rule so every more specific rule below
+  # still outranks it - matching runs bottom-up and takes the first hit, so
+  # entering an attack, the inventory doll and the rest keep their own timings.
+  #
+  # A stagger is marked as a short chunk and stops mid-recovery, still off
+  # balance, so this transition is doing the regaining of balance and wants to
+  # be unhurried. cubicOut moves fastest at the start and coasts into the new
+  # pose, which is what keeps the hand-off from reading as a snap.
+  #
+  # Staggers only. The mod's other clips are groups called death*, and those end
+  # on the floor and hold there - a body has no recovery to blend. The wildcard
+  # would also have caught the engine's own death1..death5, deathknockdown and
+  # deathknockout, which is the other reason not to write one; nothing in
+  # vanilla is called stagger*.
+  - from: "stagger*"
+    to: "*"
+    easing: "cubicOut"
+    duration: 0.5
+
+  # From anything to sneaking
+  - from: "*"
+    to: "idlesneak*"
+    easing: "springOutWeak"
+    duration: 0.4
+  - from: "*"
+    to: "sneakforward*"
+    easing: "springOutWeak"
+    duration: 0.4
+  # From any to preparing for an attack swing (e.g "weapononehanded: chop start").
+  # Note that Rules like *:chop* will technically match any weapon attack animation with
+  # an animation key beginning on "chop". This includes attack preparation, attack itself and follow-through.
+  # Yet since rules below this block take care of more specific transitions - most likely this block will
+  # only affect "any animation"->"attack swing preparation".
+  - from: "*"
+    to: "*:shoot*"
+    easing: "sineOut"
+    duration: 0.1
+  - from: "*"
+    to: "*:chop*"
+    easing: "sineOut"
+    duration: 0.1
+  - from: "*"
+    to: "*:thrust*"
+    easing: "sineOut"
+    duration: 0.1
+  - from: "*"
+    to: "*:slash*"
+    easing: "sineOut"
+    duration: 0.1
+  # From preparing for an attack swing (e.g "weapononehanded: chop start") to an attack swing (e.g "weapononehanded: chop max attack").
+  - from: "*:*start"
+    to: "*:*attack"
+    easing: "sineOut"
+    duration: 0.05
+  # From a weapon swing to the final follow-through
+  - from: "*"
+    to: "*:*follow start"
+    easing: "linear"
+    duration: 0
+  # Sharper out of jumping transition, so bunny-hopping looks similar to vanilla
+  - from: "jump:start"
+    to: "*"
+    easing: "sineOut"
+    duration: 0.1
+  # Inventory doll poses don't work with transitions, so 0 duraion.
+  - from: "*"
+    to: "inventory*"
+    easing: "linear"
+    duration: 0
+  - from: "inventory*"
+    to: "*"
+    easing: "linear"
+    duration: 0
+  # Transitions from a no-state are always instant
+  - from: ""
+    to: "*"
+    easing: "linear"
+    duration: 0

@@ -1,0 +1,536 @@
+[
+  {
+    "group": "DeathBack",
+    "kind": "death",
+    "action": "[ARP][Exp] BSDeathBack",
+    "clip": "BSDeathBack",
+    "bearing": 160.731603591828,
+    "far": false,
+    "frames": [
+      18,
+      183
+    ],
+    "tags": [
+      "back"
+    ],
+    "seconds": 2.75
+  },
+  {
+    "group": "DeathBack1",
+    "kind": "death",
+    "action": "[ARP][Exp] BSDeathBack1",
+    "clip": "BSDeathBack1",
+    "bearing": -178.70927208968013,
+    "far": false,
+    "frames": [
+      20,
+      181
+    ],
+    "tags": [
+      "back"
+    ],
+    "seconds": 2.683
+  },
+  {
+    "group": "DeathBack2",
+    "kind": "death",
+    "action": "[ARP][Exp] BSDeathBack2",
+    "clip": "BSDeathBack2",
+    "bearing": -163.46281553035874,
+    "far": false,
+    "frames": [
+      19,
+      178
+    ],
+    "tags": [
+      "back"
+    ],
+    "seconds": 2.65
+  },
+  {
+    "group": "DeathBackFar",
+    "kind": "death",
+    "action": "[ARP][Exp] BSDeathBackFar",
+    "clip": "BSDeathBackFar",
+    "bearing": -165.7797191125485,
+    "far": true,
+    "frames": [
+      20,
+      191
+    ],
+    "tags": [
+      "back"
+    ],
+    "seconds": 2.85
+  },
+  {
+    "group": "DeathBackFarFlip",
+    "kind": "death",
+    "action": "[ARP][Exp] BSDeathBackFarFlip",
+    "clip": "BSDeathBackFarFlip",
+    "bearing": 174.87171370083456,
+    "far": true,
+    "frames": [
+      20,
+      169
+    ],
+    "tags": [
+      "back"
+    ],
+    "seconds": 2.483
+  },
+  {
+    "group": "DeathBackHigh",
+    "kind": "death",
+    "action": "[ARP][Exp] BSDeathBackHigh",
+    "clip": "BSDeathBackHigh",
+    "bearing": 172.89296018206744,
+    "far": false,
+    "frames": [
+      18,
+      194
+    ],
+    "tags": [
+      "back"
+    ],
+    "seconds": 2.933
+  },
+  {
+    "group": "DeathBackHighFace",
+    "kind": "death",
+    "action": "[ARP][Exp] BSDeathBackHighFace",
+    "clip": "BSDeathBackHighFace",
+    "bearing": -177.83479598648478,
+    "far": false,
+    "frames": [
+      18,
+      300
+    ],
+    "tags": [
+      "back"
+    ],
+    "seconds": 4.7
+  },
+  {
+    "group": "DeathDown",
+    "kind": "death",
+    "action": "[ARP][Exp] BSDeathDown",
+    "clip": "BSDeathDown",
+    "bearing": 131.6165076790279,
+    "far": false,
+    "frames": [
+      20,
+      195
+    ],
+    "tags": [
+      "down",
+      "left"
+    ],
+    "seconds": 2.917
+  },
+  {
+    "group": "DeathDownLeft",
+    "kind": "death",
+    "action": "[ARP][Exp] BSDeathDownLeft",
+    "clip": "BSDeathDownLeft",
+    "bearing": -82.56619429212903,
+    "far": false,
+    "frames": [
+      20,
+      138
+    ],
+    "tags": [
+      "down",
+      "right"
+    ],
+    "seconds": 1.967
+  },
+  {
+    "group": "DeathDownLeft1",
+    "kind": "death",
+    "action": "[ARP][Exp] BSDeathDownLeft1",
+    "clip": "BSDeathDownLeft1",
+    "bearing": -96.0492553814396,
+    "far": false,
+    "frames": [
+      19,
+      185
+    ],
+    "tags": [
+      "down",
+      "right"
+    ],
+    "seconds": 2.767
+  },
+  {
+    "group": "DeathDownLeft2",
+    "kind": "death",
+    "action": "[ARP][Exp] BSDeathDownLeft2",
+    "clip": "BSDeathDownLeft2",
+    "bearing": -123.36118589845117,
+    "far": false,
+    "frames": [
+      20,
+      109
+    ],
+    "tags": [
+      "down",
+      "right"
+    ],
+    "seconds": 1.483
+  },
+  {
+    "group": "DeathDownRight",
+    "kind": "death",
+    "action": "[ARP][Exp] BSDeathDownRight",
+    "clip": "BSDeathDownRight",
+    "bearing": 110.27775506106389,
+    "far": false,
+    "frames": [
+      20,
+      100
+    ],
+    "tags": [
+      "down",
+      "left"
+    ],
+    "seconds": 1.333
+  },
+  {
+    "group": "DeathDownRight2",
+    "kind": "death",
+    "action": "[ARP][Exp] BSDeathDownRight2",
+    "clip": "BSDeathDownRight2",
+    "bearing": 90.89055637843455,
+    "far": false,
+    "frames": [
+      19,
+      170
+    ],
+    "tags": [
+      "down",
+      "left"
+    ],
+    "seconds": 2.517
+  },
+  {
+    "group": "DeathForwardFlipFar",
+    "kind": "death",
+    "action": "[ARP][Exp] BSDeathForwardFar",
+    "clip": "BSDeathForwardFar",
+    "bearing": -1.3484806487195726,
+    "far": true,
+    "frames": [
+      20,
+      215
+    ],
+    "tags": [
+      "forward"
+    ],
+    "seconds": 3.25
+  },
+  {
+    "group": "DeathForward",
+    "kind": "death",
+    "action": "[ARP][Exp] BSDeathForwardMed",
+    "clip": "BSDeathForwardMed",
+    "bearing": -3.4006932619302006,
+    "far": false,
+    "frames": [
+      20,
+      172
+    ],
+    "tags": [
+      "forward"
+    ],
+    "seconds": 2.533
+  },
+  {
+    "group": "DeathLeftFar",
+    "kind": "death",
+    "action": "[ARP][Exp] BSDeathLeftFar",
+    "clip": "BSDeathLeftFar",
+    "bearing": -97.95441200368965,
+    "far": true,
+    "frames": [
+      19,
+      105
+    ],
+    "tags": [
+      "right"
+    ],
+    "seconds": 1.433
+  },
+  {
+    "group": "DeathRightFar",
+    "kind": "death",
+    "action": "[ARP][Exp] BSDeathRightFar",
+    "clip": "BSDeathRightFar",
+    "bearing": 74.80538118579571,
+    "far": true,
+    "frames": [
+      20,
+      190
+    ],
+    "tags": [
+      "left"
+    ],
+    "seconds": 2.833
+  },
+  {
+    "group": "DeathStepBack",
+    "kind": "death",
+    "action": "[ARP][Exp] BSDeathStepBack",
+    "clip": "BSDeathStepBack",
+    "bearing": -176.62850553509458,
+    "far": false,
+    "frames": [
+      20,
+      167
+    ],
+    "tags": [
+      "back"
+    ],
+    "seconds": 2.45
+  },
+  {
+    "group": "DeathLongForward",
+    "kind": "death",
+    "action": "[ARP][Exp] BSKnockForward",
+    "clip": "BSKnockForward",
+    "bearing": 5.6785207952318615,
+    "far": true,
+    "frames": [
+      19,
+      289
+    ],
+    "tags": [
+      "forward"
+    ],
+    "seconds": 4.5
+  },
+  {
+    "group": "DeathRight",
+    "kind": "death",
+    "action": "[ARP][Exp] BSSDeathRight",
+    "clip": "BSSDeathRight",
+    "bearing": 89.25985187587588,
+    "far": false,
+    "frames": [
+      20,
+      233
+    ],
+    "tags": [
+      "left"
+    ],
+    "seconds": 3.55
+  },
+  {
+    "group": "DeathStepLeft",
+    "kind": "death",
+    "action": "[ARP][Exp] BSSDeathStepLeft",
+    "clip": "BSSDeathStepLeft",
+    "bearing": -80.81195384445147,
+    "far": false,
+    "frames": [
+      144,
+      286
+    ],
+    "tags": [
+      "right"
+    ],
+    "seconds": 2.367
+  },
+  {
+    "group": "DeathWalkLeft",
+    "kind": "death",
+    "action": "[ARP][Exp] BSSDeathWalkLeft",
+    "clip": "BSSDeathWalkLeft",
+    "bearing": -79.54600916751045,
+    "far": false,
+    "frames": [
+      10,
+      183
+    ],
+    "tags": [
+      "right"
+    ],
+    "seconds": 2.883
+  },
+  {
+    "group": "StaggerBack",
+    "kind": "stagger",
+    "action": "[ARP][Exp] BSStaggerBack Recovery",
+    "clip": "BSStaggerBack",
+    "bearing": 135.26789439330088,
+    "far": false,
+    "frames": [
+      20,
+      126
+    ],
+    "tags": [
+      "back"
+    ],
+    "seconds": 1.767
+  },
+  {
+    "group": "StaggerLongLeft",
+    "kind": "stagger",
+    "action": "[ARP][Exp] BSStaggerLongLeft Recovery",
+    "clip": "BSStaggerLongLeft",
+    "bearing": -90.65842103217486,
+    "far": true,
+    "frames": [
+      19,
+      98
+    ],
+    "tags": [
+      "right"
+    ],
+    "seconds": 1.317
+  },
+  {
+    "group": "StaggerLongRight",
+    "kind": "stagger",
+    "action": "[ARP][Exp] BSStaggerLongLeft Recovery Mirrored",
+    "clip": "BSStaggerLongLeft Recovery Mirrored",
+    "bearing": 90.65842103217483,
+    "far": true,
+    "frames": [
+      19,
+      98
+    ],
+    "tags": [
+      "left"
+    ],
+    "seconds": 1.317
+  },
+  {
+    "group": "StaggerStumbleBack",
+    "kind": "stagger",
+    "action": "[ARP][Exp] BSStumbleBack Recovery",
+    "clip": "BSStumbleBack",
+    "bearing": 129.17164160005086,
+    "far": false,
+    "frames": [
+      20,
+      85
+    ],
+    "tags": [
+      "back"
+    ],
+    "seconds": 1.083
+  },
+  {
+    "group": "StaggerStumbleLeft2",
+    "kind": "stagger",
+    "action": "[ARP][Exp] BSStumbleLeft2 Recovery",
+    "clip": "BSStumbleLeft2",
+    "bearing": -77.51565058425929,
+    "far": false,
+    "frames": [
+      12,
+      82
+    ],
+    "tags": [
+      "right"
+    ],
+    "seconds": 1.167
+  },
+  {
+    "group": "StaggerStumbleRight2M",
+    "kind": "stagger",
+    "action": "[ARP][Exp] BSStumbleLeft2 Recovery Mirrored",
+    "clip": "BSStumbleLeft2 Recovery Mirrored",
+    "bearing": 77.51565058425928,
+    "far": false,
+    "frames": [
+      12,
+      82
+    ],
+    "tags": [
+      "left"
+    ],
+    "seconds": 1.167
+  },
+  {
+    "group": "StaggerStumbleHopLeft2",
+    "kind": "stagger",
+    "action": "[ARP][Exp] BSStumbleLeft2Hop Recovery",
+    "clip": "BSStumbleLeft2Hop",
+    "bearing": -89.19682537793136,
+    "far": false,
+    "frames": [
+      12,
+      91
+    ],
+    "tags": [
+      "right"
+    ],
+    "seconds": 1.317
+  },
+  {
+    "group": "StaggerStumbleHopRight2",
+    "kind": "stagger",
+    "action": "[ARP][Exp] BSStumbleLeft2Hop Recovery Mirrored",
+    "clip": "BSStumbleLeft2Hop Recovery Mirrored",
+    "bearing": 89.19682537793136,
+    "far": false,
+    "frames": [
+      12,
+      91
+    ],
+    "tags": [
+      "left"
+    ],
+    "seconds": 1.317
+  },
+  {
+    "group": "StaggerStumbleRightBack",
+    "kind": "stagger",
+    "action": "[ARP][Exp] BSStumbleRight Recovery",
+    "clip": "BSStumbleRight",
+    "bearing": 143.72761047759798,
+    "far": false,
+    "frames": [
+      1,
+      92
+    ],
+    "tags": [
+      "back"
+    ],
+    "seconds": 1.517
+  },
+  {
+    "group": "StaggerStumbleRight2",
+    "kind": "stagger",
+    "action": "[ARP][Exp] BSStumbleRight2 Recovery",
+    "clip": "BSStumbleRight2",
+    "bearing": 90.5001669328642,
+    "far": false,
+    "frames": [
+      11,
+      82
+    ],
+    "tags": [
+      "left"
+    ],
+    "seconds": 1.183
+  },
+  {
+    "group": "StaggerStumbleLeft2M",
+    "kind": "stagger",
+    "action": "[ARP][Exp] BSStumbleRight2 Recovery Mirrored",
+    "clip": "BSStumbleRight2 Recovery Mirrored",
+    "bearing": -90.5001669328642,
+    "far": false,
+    "frames": [
+      11,
+      82
+    ],
+    "tags": [
+      "right"
+    ],
+    "seconds": 1.183
+  }
+]

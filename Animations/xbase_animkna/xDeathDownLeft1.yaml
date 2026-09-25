@@ -1,0 +1,19 @@
+# Blend rules for the Brutal Staggers clip "deathdownleft1".
+#
+# Transitions INTO this clip, and nothing else. The rules that govern a
+# transition belong to the animation being blended into rather than the one
+# being left (Animation::resetActiveGroups passes animsrc->mAnimBlendRules of
+# the source becoming ACTIVE), so a per-kf file reaches its own entries only.
+# Recovery out of a stagger is in Animations/animation-config.yaml instead.
+#
+# Per-animation rules are appended after the global ruleset and the bottom-most
+# match wins, so this outranks the global config.
+
+blending_rules:
+  # Short, so a hit reads as an impact instead of a lean into one. Every source
+  # is the same 0.08: a second blow landing mid-clip should hit as hard as the
+  # first, which means it gets the same entry timing rather than a softer one.
+  - from: "*"
+    to: "deathdownleft1"
+    easing: "sineOut"
+    duration: 0.08
