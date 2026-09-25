@@ -5,11 +5,10 @@ Hit Reactions Animated.zip
 # Python bytecode and Blender's previous-save backups
 __pycache__/
 *.pyc
-*.blend1
 preview_*.png
 
-# The ARP retarget workspace. 21 MB of binary that is re-saved every time a clip
-# is marked, so committing it would add that much to history each time. It is
-# the one thing here with no text form; back it up outside git, or set up LFS
-# and drop this line.
-Sources/*.blend
+# Blender's previous-save backup, not the file itself. Reatrget.blend IS
+# committed: it is the only place the hand-marking of every clip exists, and
+# nothing else in Sources can reproduce it. It costs about 21 MB per save in
+# history, which is the price of having it.
+Sources/*.blend1
