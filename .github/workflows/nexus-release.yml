@@ -25,11 +25,11 @@ name: Release to Nexus Mods
 # places.
 #
 # One-time setup, before the first push to main:
-#   1. NEXUSMODS_FILE_ID and NEXUSMODS_MOD_ID below are placeholders and must be filled in. The
-#      file id is in the "Advanced" panel of the main file on the mod page; the mod id is the
-#      internal one the API reports, NOT the 56594 in the page URL.
-#   2. Repo Settings -> Secrets and variables -> Actions -> New repository secret
-#      NEXUSMODS_API_KEY = the "Personal API Key" from https://www.nexusmods.com/settings/api-keys
+#   Repo Settings -> Secrets and variables -> Actions -> New repository secret
+#     NEXUSMODS_API_KEY = the "Personal API Key" from https://www.nexusmods.com/settings/api-keys
+#
+#   The ids below came from the "Advanced" panel of the main file on the mod page. Note the mod id
+#   is the internal one the API uses, not the 56594 in the page URL.
 
 on:
   push:
@@ -52,8 +52,8 @@ concurrency:
 
 env:
   NEXUS_PAGE: https://www.nexusmods.com/morrowind/mods/56594
-  NEXUSMODS_FILE_ID: "FILL_ME_IN"
-  NEXUSMODS_MOD_ID: "FILL_ME_IN"
+  NEXUSMODS_FILE_ID: "3322174"
+  NEXUSMODS_MOD_ID: "429496786194"
   FILE_DISPLAY_NAME: Hit Reactions Animated
   ZIP_NAME: HitReactionsAnimated
   VERSION_SOURCE: scripts/MaxYari/hit reactions/dependencies.lua
