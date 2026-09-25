@@ -1,51 +1,30 @@
 ![](https://i.imgur.com/CBAElYb.png)
 ![](https://i.imgur.com/YYFfIlT.png)
 
-**v2 brings a lot more of everything: more stagger and death animations, picked
-to match the direction of the blow, and fake ragdolls of a kind. You can see
-some of it in action in the video below.**
+**v2 Introduces more stagger and death animations, fake ragdolls of a kind, its a lot and its very cool, you can see some of it in action in the video below**
 
 <!-- nexus-raw: [youtube]GPr29jKNFYI[/youtube] -->
 
-![](https://staticdelivery.nexusmods.com/mods/100/images/56594/56594-1747158023-1855299359.gif)
-![](https://staticdelivery.nexusmods.com/mods/100/images/56594/56594-1747158008-631610966.gif)
+## 💃 GIFs GIFs GIFs
 
-[![](https://raw.githubusercontent.com/MaxYari/TheyBleedOpenMW/main/imgs/head_like_a_hole_banner_left_half_bright148.webp)![](https://raw.githubusercontent.com/MaxYari/TheyBleedOpenMW/main/imgs/nexus/banner_right.png)](https://ko-fi.com/maxyari)
-[![](https://raw.githubusercontent.com/MaxYari/TheyBleedOpenMW/main/imgs/nexus/banner_glow.png)](https://ko-fi.com/maxyari)
+![](https://staticdelivery.nexusmods.com/mods/100/images/56594/56594-1747158023-1855299359.gif)![](https://staticdelivery.nexusmods.com/mods/100/images/56594/56594-1747158008-631610966.gif)
 
-## What it does
+[![](img/kofi-left.webp)![](img/kofi-right.png)](https://ko-fi.com/maxyari)
+[![](img/kofi-glow.png)](https://ko-fi.com/maxyari)
 
-Two halves, sharing one settings page.
+## 💃 Installation
 
-**Flinches.** A torso animation layered over whatever the character is already
-doing, on every instance of damage however small. It does not interrupt them -
-they keep walking, keep swinging.
+* Install the dependency [Max Yari's Script Services (MSS)](https://www.nexusmods.com/morrowind/mods/60256) (Most of my lua mods require it now, should come BEFORE all my mods in the load order, you can just move it at the very top of your list, no harm in that).
+* Install this mod **With a mod organiser**: Download this repository as an archive and drag and drop it into your mod organiser of choice (e.g [Mod Organizer 2](https://github.com/ModOrganizer2/modorganizer/releases) on Windows or [Nerevarine Organizer](https://github.com/grazelandsnomad/nerevarine_organizer/releases/tag/v0.70) on Linux). **Or**: [read this tutorial](https://modding-openmw.com/tips/installing-mods/) on how to install mods using the launcher or completely manually (it's also very easy).
+* Enable the mod's .omwscript file in "Content Files" tab of the OpenMW launcher
 
-**Staggers and deaths.** Replaces the engine's own `hit1`-`hit5` and `death*`
-animations with endorphin-simulated falls, cut by hand and chosen to match the
-direction of the blow: where the attacker stands, which way the weapon swings,
-and how hard it landed. `knockdown` and `knockout` are left alone.
+---
 
-Applies to the player, to every NPC, and to creatures that use the humanoid
-animation set. The stagger half is third person only.
+Thanks to folks in OpenMW discord for supporting my shenanigans and helping when OpenMW lua docs give up on being understandable.
 
-## Installation
+Hit them hard!
 
-* Install the dependency [Max Yari's Script Services (MSS)](https://www.nexusmods.com/morrowind/mods/60256).
-  Most of my Lua mods need it now. It should come **before** all my mods in the
-  load order - putting it at the very top of the list does no harm.
-* Install this mod **with a mod organiser**: download the archive and drag it
-  into the organiser of your choice - [Mod Organizer 2](https://github.com/ModOrganizer2/modorganizer/releases)
-  on Windows, [Nerevarine Organizer](https://github.com/grazelandsnomad/nerevarine_organizer/releases/tag/v0.70)
-  on Linux. **Or** [read this tutorial](https://modding-openmw.com/tips/installing-mods/)
-  on installing mods with the launcher or by hand - it is also very easy.
-* Enable the mod's `.omwscripts` file in the **Content Files** tab of the OpenMW
-  launcher.
-
-Nothing else is required. LuaPhysics is not used - the gear-off-a-corpse feature
-that needed it now lives in The Combat Juice.
-
-Developed and tested against OpenMW 0.51.
+<!-- nexus-skip-start -->
 
 ## What is in the pool
 
@@ -212,12 +191,6 @@ Animations simulated in endorphin and retargeted onto the Morrowind skeleton.
 Rig and export toolchain from [ReAnimation](https://www.nexusmods.com/morrowind/mods/52596)
 and Bizarre Morrowind Anim Utils.
 
-Thanks to the folks in the OpenMW Discord for supporting my shenanigans, and for
-helping out when the OpenMW Lua docs give up on being understandable.
-
-Hit them hard!
-
-<!-- nexus-skip-section -->
 ## Building from source
 
 `docs/development.md` covers how the mod is put together, and
@@ -231,3 +204,5 @@ luajit Sources/tests/test_clip_selection.lua      # which clips a given push cho
 luajit Sources/tests/test_no_repeat.lua           # the no-repeat rule and its fallbacks
 bash tools/build_nexus_zip.sh                     # pack what Nexus gets
 ```
+
+<!-- nexus-skip-end -->

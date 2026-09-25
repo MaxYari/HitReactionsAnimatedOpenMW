@@ -1,162 +1,25 @@
 [img]https://i.imgur.com/CBAElYb.png[/img] [img]https://i.imgur.com/YYFfIlT.png[/img]
 
-[b]v2 brings a lot more of everything: more stagger and death animations, picked to match the direction of the blow, and fake ragdolls of a kind. You can see some of it in action in the video below.[/b]
+[b]v2 Introduces more stagger and death animations, fake ragdolls of a kind, its a lot and its very cool, you can see some of it in action in the video below[/b]
 
 [youtube]GPr29jKNFYI[/youtube]
 
-[img]https://staticdelivery.nexusmods.com/mods/100/images/56594/56594-1747158023-1855299359.gif[/img] [img]https://staticdelivery.nexusmods.com/mods/100/images/56594/56594-1747158008-631610966.gif[/img]
+[size=5][b]💃 GIFs GIFs GIFs[/b][/size]
 
-[url=https://ko-fi.com/maxyari][img]https://raw.githubusercontent.com/MaxYari/TheyBleedOpenMW/main/imgs/head_like_a_hole_banner_left_half_bright148.webp[/img][img]https://raw.githubusercontent.com/MaxYari/TheyBleedOpenMW/main/imgs/nexus/banner_right.png[/img][/url] [url=https://ko-fi.com/maxyari][img]https://raw.githubusercontent.com/MaxYari/TheyBleedOpenMW/main/imgs/nexus/banner_glow.png[/img][/url]
+[img]https://staticdelivery.nexusmods.com/mods/100/images/56594/56594-1747158023-1855299359.gif[/img][img]https://staticdelivery.nexusmods.com/mods/100/images/56594/56594-1747158008-631610966.gif[/img]
 
-[size=5][b]What it does[/b][/size]
+[url=https://ko-fi.com/maxyari][img]https://raw.githubusercontent.com/MaxYari/HitReactionsAnimatedOpenMW/main/img/kofi-left.webp[/img][img]https://raw.githubusercontent.com/MaxYari/HitReactionsAnimatedOpenMW/main/img/kofi-right.png[/img][/url] [url=https://ko-fi.com/maxyari][img]https://raw.githubusercontent.com/MaxYari/HitReactionsAnimatedOpenMW/main/img/kofi-glow.png[/img][/url]
 
-Two halves, sharing one settings page.
-
-[b]Flinches.[/b] A torso animation layered over whatever the character is already doing, on every instance of damage however small. It does not interrupt them - they keep walking, keep swinging.
-
-[b]Staggers and deaths.[/b] Replaces the engine's own [font=Courier New]hit1[/font]-[font=Courier New]hit5[/font] and [font=Courier New]death*[/font] animations with endorphin-simulated falls, cut by hand and chosen to match the direction of the blow: where the attacker stands, which way the weapon swings, and how hard it landed. [font=Courier New]knockdown[/font] and [font=Courier New]knockout[/font] are left alone.
-
-Applies to the player, to every NPC, and to creatures that use the humanoid animation set. The stagger half is third person only.
-
-[size=5][b]Installation[/b][/size]
+[size=5][b]💃 Installation[/b][/size]
 
 [list]
-[*]Install the dependency [url=https://www.nexusmods.com/morrowind/mods/60256]Max Yari's Script Services (MSS)[/url]. Most of my Lua mods need it now. It should come [b]before[/b] all my mods in the load order - putting it at the very top of the list does no harm.
-[*]Install this mod [b]with a mod organiser[/b]: download the archive and drag it into the organiser of your choice - [url=https://github.com/ModOrganizer2/modorganizer/releases]Mod Organizer 2[/url] on Windows, [url=https://github.com/grazelandsnomad/nerevarine_organizer/releases/tag/v0.70]Nerevarine Organizer[/url] on Linux. [b]Or[/b] [url=https://modding-openmw.com/tips/installing-mods/]read this tutorial[/url] on installing mods with the launcher or by hand - it is also very easy.
-[*]Enable the mod's [font=Courier New].omwscripts[/font] file in the [b]Content Files[/b] tab of the OpenMW launcher.
+[*]Install the dependency [url=https://www.nexusmods.com/morrowind/mods/60256]Max Yari's Script Services (MSS)[/url] (Most of my lua mods require it now, should come BEFORE all my mods in the load order, you can just move it at the very top of your list, no harm in that).
+[*]Install this mod [b]With a mod organiser[/b]: Download this repository as an archive and drag and drop it into your mod organiser of choice (e.g [url=https://github.com/ModOrganizer2/modorganizer/releases]Mod Organizer 2[/url] on Windows or [url=https://github.com/grazelandsnomad/nerevarine_organizer/releases/tag/v0.70]Nerevarine Organizer[/url] on Linux). [b]Or[/b]: [url=https://modding-openmw.com/tips/installing-mods/]read this tutorial[/url] on how to install mods using the launcher or completely manually (it's also very easy).
+[*]Enable the mod's .omwscript file in "Content Files" tab of the OpenMW launcher
 [/list]
 
-Nothing else is required. LuaPhysics is not used - the gear-off-a-corpse feature that needed it now lives in The Combat Juice.
+[line]
 
-Developed and tested against OpenMW 0.51.
-
-[size=5][b]What is in the pool[/b][/size]
-
-33 clips, simulated in endorphin and retargeted onto the Morrowind skeleton. Each is cut for one job, and the two jobs do not share clips: a stagger ends with the character still on their feet, a fall ends on the floor.
-
-Directions are from the [b]viewer's[/b] side, the way the clips are named - a player looking at the character they hit.
-
-[list]
-[*][b]11 staggers[/b] - 2 back, 4 to the left (one of them a long one), 5 to the right (one long). Nothing forward yet.
-[*][b]22 falls[/b] - 3 forward (2 long), 8 back (2 long), 6 left (1 long), 5 right (1 long).
-[/list]
-
-Four of the staggers are mirrors of others, which is how both sides ended up with the same repertoire including a long fall. Nothing travels forward yet.
-
-[b]Every clip[/b]
-[spoiler]
-
-[code]| group | | throws them | length | |
-|---|---|---|---|---|
-| `staggerback` | stagger | back | 1.77 s |  |
-| `staggerstumblerightback` | stagger | back | 1.52 s |  |
-| `staggerlongleft` | stagger | left | 1.32 s | **far** |
-| `staggerstumblehopleft2` | stagger | left | 1.32 s |  |
-| `staggerstumbleleft2` | stagger | left | 1.17 s |  |
-| `staggerstumbleleft2m` | stagger | left | 1.18 s |  |
-| `staggerlongright` | stagger | right | 1.32 s | **far** |
-| `staggerstumbleback` | stagger | right | 1.08 s |  |
-| `staggerstumblehopright2` | stagger | right | 1.32 s |  |
-| `staggerstumbleright2` | stagger | right | 1.18 s |  |
-| `staggerstumbleright2m` | stagger | right | 1.17 s |  |
-| `deathback` | fall | back | 2.75 s |  |
-| `deathback1` | fall | back | 2.68 s |  |
-| `deathback2` | fall | back | 2.65 s |  |
-| `deathbackfar` | fall | back | 2.85 s | **far** |
-| `deathbackfarflip` | fall | back | 2.48 s | **far** |
-| `deathbackhigh` | fall | back | 2.93 s |  |
-| `deathbackhighface` | fall | back | 4.70 s |  |
-| `deathstepback` | fall | back | 2.45 s |  |
-| `deathforward` | fall | forward | 2.53 s |  |
-| `deathforwardflipfar` | fall | forward | 3.25 s | **far** |
-| `deathlongforward` | fall | forward | 4.50 s | **far** |
-| `deathdownleft` | fall | left | 1.97 s |  |
-| `deathdownleft1` | fall | left | 2.77 s |  |
-| `deathdownleft2` | fall | left | 1.48 s |  |
-| `deathleftfar` | fall | left | 1.43 s | **far** |
-| `deathstepleft` | fall | left | 2.37 s |  |
-| `deathwalkleft` | fall | left | 2.88 s |  |
-| `deathdown` | fall | right | 2.92 s |  |
-| `deathdownright` | fall | right | 1.33 s |  |
-| `deathdownright2` | fall | right | 2.52 s |  |
-| `deathright` | fall | right | 3.55 s |  |
-| `deathrightfar` | fall | right | 2.83 s | **far** |[/code]
-
-[/spoiler]
-
-[size=5][b]Settings[/b][/size]
-
-In-game: Options -> Scripts -> Hit Reactions Animated. Two groups on one page.
-
-[b]General[/b] - the flinches:
-
-[list]
-[*][b]Intensity[/b] (1.0) - how much of the flinch plays per hit. 1.0 plays all of it, 0.1 starts it almost at its end.
-[/list]
-
-[b]Staggers and deaths:[/b]
-
-[list]
-[*][b]Staggers[/b] (on) - replace [font=Courier New]hit1[/font]-[font=Courier New]hit5[/font].
-[*][b]Deaths[/b] (on) - replace [font=Courier New]death1[/font]-[font=Courier New]death5[/font], [font=Courier New]deathknockdown[/font], [font=Courier New]deathknockout[/font].
-[*][b]Custom staggers, forward and back[/b] (75%) - how often a stagger that throws them forwards or backwards uses one of these clips.
-[*][b]Custom staggers, sideways[/b] (50%) - the same, for one that throws them to a side. Lower because it departs further from what the engine would have done.
-[*][b]Custom deaths[/b] (90%) - the same, for deaths.
-[*][b]Match the attack[/b] (on) - pick a clip that goes the way the blow pushes.
-[*][b]Long falls for heavy blows[/b] (on) - throw them further the harder they were hit, measured against their own maximum health.
-[*][b]Keep the weapon arms steady[/b] (on) - stagger the body but leave the arms to their guard.
-[*][b]Log hits and staggers[/b] (off) - diagnostic. Writes what each hit was read as, and how its clip fared, to [font=Courier New]openmw.log[/font].
-[/list]
-
-[size=5][b]How often a clip is used at all[/b][/size]
-
-The clip is [b]drawn first[/b], then rolled against a chance that depends on what was drawn - which is the only order that lets the chance depend on the direction:
-
-[list]
-[*]a long fall - [b]always[/b]
-[*]a sideways stagger - 50%
-[*]a forward or backward stagger - 75%
-[*]a death - 90%
-[/list]
-
-Lose the roll and the mod simply does not touch the animation, so the engine plays its own and vanilla reactions stay in the mix.
-
-A long fall is never declined. It was drawn because the blow was heavy enough to earn it, and trading it for a vanilla twitch afterwards would undo the one thing it was picked for.
-
-The roll happens once per [b]reaction[/b], not once per blow: a hit landing while a clip is still running continues it rather than re-rolling.
-
-[size=5][b]Keeping the guard[/b][/size]
-
-[i]Keep the weapon arms steady[/i] plays the clip on the lower body and torso only. The character is thrown about while still holding their guard; the arms travel with the chest, because they hang off it, but their own pose stays put.
-
-The arms are not left empty. The engine's own hit reaction is given exactly the bone groups our clip is not driving - the bone groups are bit flags, so this is just [font=Courier New]All[/font] minus ours - instead of being hidden outright. What that means depends on what is in hand:
-
-[list]
-[*][b]Weapon drawn:[/b] nothing changes. The weapon animation holds priority Weapon (7) on the arms and a hit reaction is Hit (6), so the guard still wins. That is vanilla's behaviour, and the reason vanilla hit reactions are a lower-body twitch whenever a weapon is out.
-[*][b]Nothing drawn:[/b] there is no Weapon-priority animation, so the arms play the real vanilla flinch rather than carrying on with the idle or running arm swing.
-[/list]
-
-It applies to staggers alone. A character being killed should let go, not hold form, so a fall always takes the whole body and the engine's animation is hidden completely.
-
-[size=5][b]Known rough edges[/b][/size]
-
-[list]
-[*][b]Knockdowns and knockouts are left to the engine.[/b] The collection has staggers and deaths in it and nothing else. A knockdown ends with the character getting back up, and the nearest thing here is a death clip, which ends with them lying still - so they dropped, held the pose, then snapped upright the moment the engine took the body back. [font=Courier New]deathknockdown[/font] and [font=Courier New]deathknockout[/font] are replaced, because those are deaths.
-[*][b]Nothing travels forward.[/b] A blow from behind gets the nearest sideways clip instead. Mirroring cannot fix it - it swaps left for right and leaves forward and back alone - so that gap needs a clip of its own.
-[*][b]Beast races.[/b] [font=Courier New]Animations/xbase_animkna/[/font] is a straight copy of the human clips. Khajiit and Argonians are digitigrade, so their legs will bend wrong. Delete that folder to leave beast races on vanilla animations, or retarget the clips properly with the addon's Transfer to Beasts.
-[*][b]First person[/b] is untouched; the clips are only in the third-person skeleton's folders, and the override bails out when the group is not loaded.
-[*][b]Swimming[/b] hit and death groups ([font=Courier New]swimhit[/font], [font=Courier New]swimdeath[/font], ...) are left alone. These clips fall to a floor.
-[*][b]The second batch opens slightly crouched.[/b] [font=Courier New]2_Death_*[/font] and [font=Courier New]2_Stumble_*[/font] start with the pelvis at 68-70 Morrowind units where the first batch stands at 76.7 and the vanilla idle sits at 76.369, so the character dips about 8 units as the clip blends in. That is the pose the simulation was actually in, not a retarget error - the scale is taken from leg length precisely so it is not silently flattened out. It reads as a small flinch; re-simulating those clips from a standing start is the fix if it bothers you.
-[/list]
-
-[size=5][b]Gear coming off a corpse[/b][/size]
-
-This used to live here - the weapon thrown out of a dying character's hands, the helmet knocked off, worn gear and inventory scattered with LuaPhysics. It has moved to [b]Combat Juice[/b], where each of those has its own chance. Settings tuned here do not carry over.
-
-[size=5][b]Credits[/b][/size]
-
-Animations simulated in endorphin and retargeted onto the Morrowind skeleton. Rig and export toolchain from [url=https://www.nexusmods.com/morrowind/mods/52596]ReAnimation[/url] and Bizarre Morrowind Anim Utils.
-
-Thanks to the folks in the OpenMW Discord for supporting my shenanigans, and for helping out when the OpenMW Lua docs give up on being understandable.
+Thanks to folks in OpenMW discord for supporting my shenanigans and helping when OpenMW lua docs give up on being understandable.
 
 Hit them hard!
