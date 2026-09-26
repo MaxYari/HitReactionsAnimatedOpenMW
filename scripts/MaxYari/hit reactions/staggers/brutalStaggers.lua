@@ -708,6 +708,16 @@ I.AnimationController.addAnimationEndedHandler(function(groupname)
     if groupname ~= currentParent then return end
     if CATEGORIES[groupname] == DEATH then
         -- A corpse stays down. Forget the clip rather than cancelling it.
+        --
+        -- Worth logging, because the engine hangs something on this moment: a
+        -- summoned creature is only dissolved once its own death animation has
+        -- stopped playing (CharacterController::kill sets
+        -- setDeathAnimationFinished, summoning.cpp then purges the effect). If
+        -- this line never appears for a summon that failed to dissolve, the
+        -- engine's death animation is what is stuck, not our clip.
+        if logging() then
+            log('engine death group', groupname, 'ended; ours keeps its last frame')
+        end
         current = nil
         currentParent = nil
         return

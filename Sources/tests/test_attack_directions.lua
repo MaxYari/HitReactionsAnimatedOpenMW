@@ -130,6 +130,26 @@ for _, p in ipairs({ { 'weapontwohand', 'weapontwohandsub' },
           p[2] .. ' should swing the same way as ' .. p[1])
 end
 
+-- A weapon mod's override group must be listed, or the lookup prefers the parent
+-- it overrides and hands back the wrong directions. Katars are the case that
+-- caught it: hand-to-hand animations on a weapononehand parent.
+local function listed(group)
+    return dirs[group] ~= nil
+end
+for _, g in ipairs({ 'katar', 'kataralt' }) do
+    check(listed(g), g .. ' must be listed, or it inherits weapononehand and swings backwards')
+end
+check(swingOf('katar', 'slash').x * swingOf('handtohand', 'slash').x > 0,
+      'katar slashes the same way as hand-to-hand, whose animations it uses')
+check(swingOf('katar', 'chop').y * swingOf('handtohand', 'chop').y > 0,
+      'katar chops the same way as hand-to-hand')
+check(swingOf('katar', 'slash').x * swingOf('weapononehand', 'slash').x < 0,
+      'and therefore the opposite way to weapononehand, the group it overrides')
+check(swingOf('katar', 'slash').x * swingOf('kataralt', 'slash').x < 0,
+      'kataralt is the mirrored pair, so it reverses katar')
+check(swingOf('katar', 'chop').y * swingOf('kataralt', 'chop').y < 0,
+      'kataralt chops the other way too')
+
 print('=== 2. a blow pushes away from whoever swung =====================')
 -- Thrust has no sweep, so the bearing is purely "away from the attacker".
 local EXPECT_AWAY = { ['in front'] = 'back', ['behind'] = 'forward',
