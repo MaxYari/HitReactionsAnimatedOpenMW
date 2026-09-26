@@ -19,6 +19,13 @@
 --
 -- far is true for a clip that throws the character a long way, read off the
 -- name (Far, or Long). The Lua can save those for the blows that earn them.
+--
+-- dremora marks a clip whose .kf was retimed onto the Dremora mesh's own death
+-- span, 666.667 to 669.333, so the mesh dissolves itself while the clip plays.
+-- Only Dremora draw these, and for a death they draw nothing else. They are
+-- picked at random rather than by direction - the body is gone a second in, too
+-- soon for the direction to read - so the bearing and tags here are only a
+-- record of which clip each was cut from. See Sources/blender/retime_kf.py.
 return {
     START_KEY = 'start',
     STOP_KEY = 'stop',
@@ -28,6 +35,11 @@ return {
         { group = 'deathback2', kind = 'death', far = false, bearing = -163.5, tags = { back = true } },
         { group = 'deathbackfar', kind = 'death', far = true, bearing = -165.8, tags = { back = true } },
         { group = 'deathbackfarflip', kind = 'death', far = true, bearing = 174.9, tags = { back = true } },
+        { group = 'deathdremora1', kind = 'death', far = false, bearing = -165.8, tags = { back = true }, dremora = true },
+        { group = 'deathdremora2', kind = 'death', far = false, bearing = -176.6, tags = { back = true }, dremora = true },
+        { group = 'deathdremora3', kind = 'death', far = false, bearing = 110.3, tags = { down = true, left = true }, dremora = true },
+        { group = 'deathdremora4', kind = 'death', far = false, bearing = -3.4, tags = { forward = true }, dremora = true },
+        { group = 'deathdremora5', kind = 'death', far = false, bearing = -80.8, tags = { right = true }, dremora = true },
         { group = 'deathbackhigh', kind = 'death', far = false, bearing = 172.9, tags = { back = true } },
         { group = 'deathbackhighface', kind = 'death', far = false, bearing = -177.8, tags = { back = true } },
         { group = 'deathdown', kind = 'death', far = false, bearing = 131.6, tags = { down = true, left = true } },

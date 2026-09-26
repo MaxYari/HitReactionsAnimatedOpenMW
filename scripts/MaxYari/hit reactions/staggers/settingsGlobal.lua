@@ -15,20 +15,14 @@ I.Settings.registerGroup {
     permanentStorage = true,
     settings = {
         {
-            key = 'Staggers',
-            renderer = 'checkbox',
-            default = true,
-            name = 'Staggers',
-            description = 'Replace the vanilla hit reactions.',
-        },
-        {
             key = 'CustomStaggerChance',
             renderer = 'number',
             default = 75,
             argument = { min = 0, max = 100, integer = true },
             name = 'Custom staggers, forward and back (%)',
             description = 'How often a stagger that throws the character forwards or backwards '
-                .. 'is used. The rest of the time the engine plays its own.',
+                .. 'is used. The rest of the time the engine plays its own. Zero, along with '
+                .. 'the sideways figure, turns custom staggers off.',
         },
         {
             key = 'SidewaysStaggerChance',
@@ -45,7 +39,7 @@ I.Settings.registerGroup {
             default = 90,
             argument = { min = 0, max = 100, integer = true },
             name = 'Custom deaths (%)',
-            description = 'How often a death is used.',
+            description = 'How often a death is used. Zero turns custom deaths off.',
         },
         {
             key = 'DirectionAware',
@@ -61,7 +55,8 @@ I.Settings.registerGroup {
             default = true,
             name = 'Long falls for heavy blows',
             description = 'Throw the character further the harder they were hit, measured '
-                .. 'against their own maximum health.',
+                .. 'against their own maximum health. A heavy blow lets a stagger reach for the '
+                .. 'long clips, and makes a death use them outright.',
         },
         {
             key = 'KeepWeaponArms',
@@ -70,13 +65,6 @@ I.Settings.registerGroup {
             name = 'Keep the weapon arms steady',
             description = 'Stagger the body but leave the arms to their guard. Off animates the '
                 .. 'whole body. Staggers only.',
-        },
-        {
-            key = 'Deaths',
-            renderer = 'checkbox',
-            default = true,
-            name = 'Deaths',
-            description = 'Replace the death animations.',
         },
         {
             key = 'LogAttackDirection',

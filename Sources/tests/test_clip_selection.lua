@@ -61,9 +61,21 @@ local function scenario(name, offX, offY, swingX, swingY)
     end
 end
 
-local counts = {}
-for _, clip in ipairs(clips.list) do counts[clip.kind] = (counts[clip.kind] or 0) + 1 end
+local counts, dremora = {}, {}
+for _, clip in ipairs(clips.list) do
+    counts[clip.kind] = (counts[clip.kind] or 0) + 1
+    if clip.dremora then
+        dremora[#dremora + 1] = clip.group
+        -- A dremora clip is retimed onto the mesh's death span, which exists
+        -- only for a death. One marked as a stagger would fire the dissolve
+        -- mid-fight.
+        assert(clip.kind == 'death',
+            ('dremora clip %s must be a death, not a %s'):format(clip.group, clip.kind))
+    end
+end
 print(('collection: %d stagger, %d fall'):format(counts.stagger or 0, counts.death or 0))
+print(('dremora-only falls: %s'):format(#dremora > 0 and table.concat(dremora, ', ') or 'none'))
+print('  (listed in the pools below, but only Dremora ever draw them)')
 print('victim faces +Y throughout; offset is victim -> attacker')
 
 scenario('chop from the front (straight down, no sweep)',        0,  100,  0,   -1)

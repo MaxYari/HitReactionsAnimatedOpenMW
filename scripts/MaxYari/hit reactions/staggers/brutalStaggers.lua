@@ -49,6 +49,31 @@ local function wrongShape()
 end
 if wrongShape() then return end
 
+-- Actors whose own mesh animates their death.
+--
+-- meshes/r/Dremora.nif carries its own Death1..Death5 text keys and, hanging off
+-- them, 15 NiVisControllers that hide the body, a NiBSPArrayController for the
+-- burst and the dust node that is left behind to loot. That dissolve is not a
+-- script and not a .kf - it is baked into the mesh, keyed to absolute times
+-- 666.667 .. 669.333.
+--
+-- OpenMW drives those non-bone controllers from the animation time of the bone
+-- group detectBlendMask() puts them in, and every non-bone node lands in
+-- LowerBody. A death of ours takes all four bone groups, so OUR clip's time is
+-- what they read - which is why overriding a Dremora death used to stop it
+-- dissolving no matter what the animation looked like.
+--
+-- The answer is a clip authored on that same span: play it and the mesh
+-- dissolves itself, untouched. Those clips are marked `dremora` in clips.lua,
+-- and they are all a Dremora may draw for a death.
+local function dremoraShaped()
+    if not types.Creature.objectIsInstance(self) then return false end
+    local ok, record = pcall(function() return types.Creature.record(self) end)
+    local model = ok and record and record.model
+    return model ~= nil and string.find(string.lower(model), 'dremora', 1, true) ~= nil
+end
+local IS_DREMORA = dremoraShaped()
+
 -- Below the gates on purpose, so an actor this script has decided not to touch
 -- pays for nothing but the dependency check.
 local clips = require(mp .. 'clips')
@@ -85,14 +110,13 @@ local STAGGER_PRIORITY = priority(10, 11)
 local FALL_PRIORITY = priority(11, 12)
 
 -- Which vanilla group gets replaced by what.
---   setting  - the checkbox that turns this category off
 --   kind     - which half of the clip collection to draw from. A stagger clip
 --              ends on its feet and a fall clip ends on the floor, so the two
 --              are not interchangeable in either direction.
 local KIND_STAGGER, KIND_DEATH = 'stagger', 'death'
 
-local STAGGER = { setting = 'Staggers', kind = KIND_STAGGER, priority = STAGGER_PRIORITY }
-local DEATH = { setting = 'Deaths', kind = KIND_DEATH, priority = FALL_PRIORITY }
+local STAGGER = { kind = KIND_STAGGER, priority = STAGGER_PRIORITY }
+local DEATH = { kind = KIND_DEATH, priority = FALL_PRIORITY }
 
 -- knockdown and knockout are deliberately absent. The collection holds staggers
 -- and deaths and nothing else: a knockdown ends with the character getting back
@@ -401,9 +425,15 @@ local function candidates(kind, bearing, vertical)
     local found, best = {}, nil
     local list = clips.list
 
+    -- A Dremora death draws only from the clips retimed onto the mesh's own
+    -- dissolve span, and everything else draws only from the rest. Staggers are
+    -- unaffected: the mesh animates nothing during one, so any clip will do.
+    local wantDremora = IS_DREMORA and kind == KIND_DEATH
+
     for i = 1, #list do
         local clip = list[i]
-        if clip.kind == kind and animation.hasGroup(self, clip.group) then
+        if clip.kind == kind and (clip.dremora == true) == wantDremora
+            and animation.hasGroup(self, clip.group) then
             local score
             if bearing == nil or clip.bearing == nil then
                 score = 0
@@ -438,16 +468,19 @@ local function chanceFor(kind, groupname)
     if kind == KIND_DEATH then
         return settings:get('CustomDeathChance') or 90
     end
+    local chance = SIDEWAYS[groupname]
+        and (settings:get('SidewaysStaggerChance') or 50)
+        or (settings:get('CustomStaggerChance') or 75)
     -- A far clip is never traded back for a vanilla twitch. It was drawn because
     -- the blow was heavy enough to earn it - that is what the damage roll is for
     -- - and declining it afterwards would undo the one thing it was picked for.
-    if FAR[groupname] then
+    --
+    -- Zero still means zero, though: it is how the whole category is turned off,
+    -- and a long clip forcing itself through would make that setting a lie.
+    if FAR[groupname] and chance > 0 then
         return 100
     end
-    if SIDEWAYS[groupname] then
-        return settings:get('SidewaysStaggerChance') or 50
-    end
-    return settings:get('CustomStaggerChance') or 75
+    return chance
 end
 
 --- Everything in a pool except the clip that just played on this actor.
@@ -474,6 +507,16 @@ end
 --- enough sideways that the straight-back clips can drop out of the slack
 --- window, and a collection this small then never reaches them.
 local function pickGroup(kind, bearing, awayBearing, vertical)
+    -- A Dremora death is drawn straight out of the hat. The mesh hides the body
+    -- one second into the span these clips are cut to, which is over before a
+    -- direction could read, so scoring them against the blow would only cost
+    -- variety. Distance is skipped for the same reason.
+    if IS_DREMORA and kind == KIND_DEATH then
+        local hat = withoutLast(candidates(kind, nil, 0))
+        if #hat == 0 then return nil end
+        return hat[math.random(#hat)]
+    end
+
     local pool = candidates(kind, bearing, vertical)
 
     if awayBearing ~= nil and awayBearing ~= bearing then
@@ -506,10 +549,25 @@ local function pickGroup(kind, bearing, awayBearing, vertical)
             -- direction match matters more than the distance.
             if #far > 0 and #near > 0 then
                 local wantFar = math.random(100) <= chance
-                pool, spare = wantFar and far or near, wantFar and near or far
+                if kind == KIND_DEATH then
+                    -- A death picks one distance or the other. There are enough
+                    -- of them that committing to a side still leaves a choice.
+                    pool, spare = wantFar and far or near, wantFar and near or far
+                else
+                    -- A stagger only UNLOCKS the long clips. There is one long
+                    -- stagger per side, so committing to "far" would mean the
+                    -- same clip every heavy blow; adding it to the pool instead
+                    -- makes it possible rather than certain.
+                    if not wantFar then
+                        pool, spare = near, far
+                    end
+                end
                 if logging() then
-                    log(('  distance: %.0f%% damage -> %.0f%% far, drew %s')
-                        :format((damageFraction() or 0) * 100, chance, wantFar and 'far' or 'near'))
+                    log(('  distance: %.0f%% damage -> %.0f%% far, %s')
+                        :format((damageFraction() or 0) * 100, chance,
+                            kind == KIND_DEATH
+                                and ('drew ' .. (wantFar and 'far' or 'near'))
+                                or (wantFar and 'long clips unlocked' or 'short clips only')))
                 end
             end
         end
@@ -552,9 +610,16 @@ I.AnimationController.addPlayBlendedAnimationHandler(function(parent, options)
     local category = CATEGORIES[parent]
     if not category then return end
 
-    if settings:get(category.setting) == false then return end
-
     local fall = category.kind == KIND_DEATH
+
+    -- Zero is how a category is turned off, so take that door before doing any
+    -- of the direction work a clip would have needed.
+    if fall then
+        if (settings:get('CustomDeathChance') or 90) <= 0 then return end
+    elseif (settings:get('CustomStaggerChance') or 75) <= 0
+        and (settings:get('SidewaysStaggerChance') or 50) <= 0 then
+        return
+    end
 
     -- Draw the clip FIRST, then roll for whether to use it.
     --
@@ -707,14 +772,8 @@ I.AnimationController.addAnimationEndedHandler(function(groupname)
 
     if groupname ~= currentParent then return end
     if CATEGORIES[groupname] == DEATH then
-        -- A corpse stays down. Forget the clip rather than cancelling it.
-        --
-        -- Worth logging, because the engine hangs something on this moment: a
-        -- summoned creature is only dissolved once its own death animation has
-        -- stopped playing (CharacterController::kill sets
-        -- setDeathAnimationFinished, summoning.cpp then purges the effect). If
-        -- this line never appears for a summon that failed to dissolve, the
-        -- engine's death animation is what is stuck, not our clip.
+        -- A corpse stays down. Forget the clip rather than cancelling it, so the
+        -- body holds where it landed instead of snapping to the vanilla pose.
         if logging() then
             log('engine death group', groupname, 'ended; ours keeps its last frame')
         end

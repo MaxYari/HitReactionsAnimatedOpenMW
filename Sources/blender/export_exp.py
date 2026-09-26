@@ -459,6 +459,26 @@ def write_manifest(clips):
 # flinch animation out of the mod every time the staggers were rebuilt.
 FOREIGN = {"HitReact.nif", "xHitReact.nif", "xHitReact.kf", "xHitReact.yaml"}
 
+# Built from exported clips by Sources/blender/retime_kf.py rather than by the
+# exporter, so nothing here knows how to rebuild them and a prune must not take
+# them out. Each is a death retimed onto the Dremora mesh's own dissolve span,
+# 666.667, so that mesh animates itself while the clip plays; see retime_kf.py
+# and the `dremora` flag in clips.lua. Regenerate one with:
+#
+#   python3 Sources/blender/retime_kf.py \
+#       Animations/xbase_anim/xDeathBackFar.kf \
+#       Animations/xbase_anim/xDeathDremora1.kf 666.334 DeathBackFar DeathDremora1
+#
+# where the delta is 666.667 minus that clip's own ": Start" time, and copy
+# x<source>.nif and x<source>.yaml alongside under the new name. No <group>.nif
+# is needed: the skeleton nif carries no text keys and still points at the
+# source mesh, which ships anyway.
+RETIMED = {name
+           for i in range(1, 6)
+           for name in (f"xDeathDremora{i}.nif",
+                        f"xDeathDremora{i}.kf",
+                        f"xDeathDremora{i}.yaml")}
+
 
 def prune(folder, clips):
     """Drop files from an earlier build.
@@ -467,7 +487,7 @@ def prune(folder, clips):
     so a clip left behind from a build with different group names is not inert,
     it is an animation source the game reads and the mod no longer knows about.
     """
-    keep = set(FOREIGN)
+    keep = set(FOREIGN) | set(RETIMED)
     for clip in clips:
         keep.update((f"{clip['group']}.nif", f"x{clip['group']}.nif",
                      f"x{clip['group']}.kf", f"x{clip['group']}.yaml"))
