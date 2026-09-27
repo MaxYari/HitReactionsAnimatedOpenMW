@@ -12,6 +12,7 @@ I.Settings.registerGroup {
     page = 'HitReactionsAnimatedPage',
     l10n = 'HitReactionsAnimated',
     name = 'Staggers and deaths',
+    order = 2,
     permanentStorage = true,
     settings = {
         {

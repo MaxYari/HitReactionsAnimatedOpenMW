@@ -7,6 +7,8 @@
 #
 # Max Yari's Script Services (MaxYariScriptServices.omwscripts) is required.
 
+MENU: scripts/MaxYari/hit reactions/menu.lua
+
 GLOBAL: scripts/MaxYari/hit reactions/settingsGlobal.lua
 GLOBAL: scripts/MaxYari/hit reactions/staggers/settingsGlobal.lua
 
