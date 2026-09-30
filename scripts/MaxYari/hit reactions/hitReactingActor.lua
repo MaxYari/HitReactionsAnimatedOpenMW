@@ -54,6 +54,8 @@ local AnimManager = require(mp .. "anim_manager")
 local hitAnimGroups = { "hitreact1", "hitreact2", "hitreact3", "hitreact4" }
 local hitAnimCount = #hitAnimGroups
 local hitReactAnim = nil
+local hitReactDirect = false -- whether the flinch in hitReactAnim answered a direct hit
+local lastIndirectAt = nil   -- simulation time the last indirect flinch started
 local settings = storage.globalSection('SettingsHitReactionsAnimated')
 
 -- Some mods alter npc health during initialization: decreases this soon after registering are ignored.
@@ -113,6 +115,20 @@ local function inCombat()
     return combatAnswer
 end
 
+--- Did this decrease come from a blow - a weapon, a fist, an arrow?
+--
+-- Those go through I.Combat's onHit, and MSS hands the AttackInfo of the hit
+-- along with the decrease it caused. Everything else is indirect: spell damage,
+-- poison, a fall, a script draining health. The engine applies none of those
+-- through onHit, so there is no hit to carry. A mod may still route its spell
+-- damage through onHit by hand, and says so in sourceType when it does.
+local function isDirect(e)
+    local hit = e.hit
+    if not hit then return false end
+    local sources = I.Combat.ATTACK_SOURCE_TYPES
+    return not (sources and hit.sourceType == sources.Magic)
+end
+
 -- Every health decrease of this actor, from Max Yari's Script Services (MSS).
 local function onDamage(e)
     -- Health falling only because max health was lowered is not damage.
@@ -121,12 +137,38 @@ local function onDamage(e)
 
     if isPlayer and settings:get("NoPlayerFlinches") == true then return end
 
+    local direct = isDirect(e)
+
     -- Zero means off, and off means not reaching for a clip at all.
-    local intensity = util.clamp(settings:get("Intensity") or 1, 0, 1)
+    local intensity = direct and (settings:get("Intensity") or 1)
+        or (settings:get("IndirectIntensity") or 0.33)
+    intensity = util.clamp(intensity, 0, 1)
     if intensity <= 0 then return end
+
+    -- Damage over time lands every frame for as long as a spell burns, and
+    -- flinches back to back read as a shiver rather than as pain. Indirect
+    -- ones are held to so many a second; a blow is never held back.
+    local now = core.getSimulationTime()
+    if not direct then
+        local frequency = settings:get("IndirectFrequency") or 2
+        if frequency <= 0 then return end
+        if lastIndirectAt and now - lastIndirectAt < 1 / frequency then return end
+    end
+
     if settings:get("CombatOnly") ~= false and not inCombat() then return end
 
-    if not hitReactAnim or not hitReactAnim:isPlaying() then
+    -- A flinch in progress is left to finish, with one exception: a blow cuts
+    -- an indirect one short. Without this the small flinch of a burning spell
+    -- would swallow any blow that arrives while it plays.
+    local playing = hitReactAnim and hitReactAnim:isPlaying()
+    if playing and direct and not hitReactDirect then
+        hitReactAnim:cancel()
+        playing = false
+    end
+
+    if not playing then
+        hitReactDirect = direct
+        if not direct then lastIndirectAt = now end
         hitReactAnim = AnimManager.Animation:play(
             hitAnimGroups[math.random(1, hitAnimCount)],
             {

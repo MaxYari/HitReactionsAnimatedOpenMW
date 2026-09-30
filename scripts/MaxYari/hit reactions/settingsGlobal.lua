@@ -37,8 +37,29 @@ I.Settings.registerGroup {
             default = 1,
             argument = { min = 0, max = 1 },
             name = 'Hit flinch intensity',
-            description = 'How much of the flinch plays on each hit. 1.0 plays the full '
-                .. 'animation, 0.1 starts it almost at its end, 0 turns flinches off.',
+            description = 'How much of the flinch plays on each weapon, fist or projectile '
+                .. 'hit. 1.0 plays the full animation, 0.1 starts it almost at its end, 0 '
+                .. 'turns these flinches off.',
+        },
+        {
+            key = 'IndirectIntensity',
+            renderer = 'number',
+            default = 0.33,
+            argument = { min = 0, max = 1 },
+            name = 'Indirect damage flinch intensity',
+            description = 'The same, for damage that did not come from a hit: spells, '
+                .. 'poison, falls and anything else that drains health. 0 turns these '
+                .. 'flinches off.',
+        },
+        {
+            key = 'IndirectFrequency',
+            renderer = 'number',
+            default = 2,
+            argument = { min = 0 },
+            name = 'Indirect damage flinch frequency',
+            description = 'At most this many flinches a second from indirect damage, so a '
+                .. 'spell that burns for a while does not flinch on every tick. Flinches '
+                .. 'from hits are not limited.',
         },
         {
             key = 'NoPlayerFlinches',
