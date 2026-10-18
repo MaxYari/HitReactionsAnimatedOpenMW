@@ -74,11 +74,23 @@ handtohand:
   slash: [-1, 0]
   thrust: [0, 0]
 
-# --- Katars (H2H Weapons) --------------------------------------------------
+# --- Katars & Knuckles ------------------------------------------------------
 # They override weapononehand, but the animations are the hand-to-hand ones, so
-# they take hand-to-hand's directions rather than their parent's. "katar" comes
-# from xKatarChop/Slash/Thrust.kf and "kataralt" from the Mirrored pair of those,
-# which is the same arrangement as handtohand and handtohandalt.
+# they take hand-to-hand's directions rather than their parent's. Knuckledusters
+# and katars both swing "knuckle", from xKnuckleChop/Slash/Thrust.kf, and
+# "knucklealt", from the Mirrored pair of those - the same arrangement as
+# handtohand and handtohandalt. "katar" and "kataralt" are kept for katar swings
+# of their own, laid out the same way.
+knuckle:
+  chop: [0, -1]
+  slash: [-1, 0]
+  thrust: [0, 0]
+
+knucklealt:
+  chop: [0, 1]
+  slash: [1, 0]
+  thrust: [0, 0]
+
 katar:
   chop: [0, -1]
   slash: [-1, 0]

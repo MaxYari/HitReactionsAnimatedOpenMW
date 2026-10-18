@@ -136,9 +136,12 @@ end
 local function listed(group)
     return dirs[group] ~= nil
 end
-for _, g in ipairs({ 'katar', 'kataralt' }) do
+for _, g in ipairs({ 'knuckle', 'knucklealt', 'katar', 'kataralt' }) do
     check(listed(g), g .. ' must be listed, or it inherits weapononehand and swings backwards')
 end
+check(swingOf('knuckle', 'slash').x * swingOf('handtohand', 'slash').x > 0 and
+      swingOf('knuckle', 'slash').x * swingOf('knucklealt', 'slash').x < 0,
+      'knuckle slashes as hand-to-hand does, and knucklealt the other way')
 check(swingOf('katar', 'slash').x * swingOf('handtohand', 'slash').x > 0,
       'katar slashes the same way as hand-to-hand, whose animations it uses')
 check(swingOf('katar', 'chop').y * swingOf('handtohand', 'chop').y > 0,
